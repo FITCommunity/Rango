@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "ecmaVersion": 12
+  },
+  "rules": {
+    "import/no-dynamic-require": 0,
+    "global-require": 0,
+    "no-console": 0,
+    "no-restricted-syntax": 0
+  }
+}
