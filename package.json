@@ -2,6 +2,9 @@
   "name": "msg-z-2",
   "version": "1.0.0",
   "description": "Discord Bot for FIT | Community",
+  "engines": {
+    "node": "16.x"
+  },
   "main": "index.js",
   "husky": {
     "hooks": {
