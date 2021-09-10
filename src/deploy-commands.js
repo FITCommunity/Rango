@@ -2,10 +2,9 @@ const path = require("path");
 const fs = require("fs");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
+const dotenv = require("dotenv");
 
-const {
-  discord: { token, clientId }
-} = require("./app.development.json");
+dotenv.config();
 
 const commands = [];
 fs.readdirSync(path.resolve(__dirname, "commands")).forEach((dir) => {
@@ -19,11 +18,13 @@ fs.readdirSync(path.resolve(__dirname, "commands")).forEach((dir) => {
   }
 });
 
-const rest = new REST({ version: "9" }).setToken(token);
+const rest = new REST({ version: "9" }).setToken(
+  process.env.DISCORD_CLIENT_TOKEN
+);
 
 (async () => {
   try {
-    await rest.put(Routes.applicationCommands(clientId), {
+    await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
       body: commands
     });
 
