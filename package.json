@@ -1,5 +1,5 @@
 {
-  "name": "msg-z-2",
+  "name": "rango",
   "version": "1.0.0",
   "description": "Discord Bot for FIT | Community",
   "engines": {
@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EnisMulic/MSG-Z-2.git"
+    "url": "git+https://github.com/FITCommunity/Rango.git"
   },
   "author": "Enis Mulić",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EnisMulic/MSG-Z-2/issues"
+    "url": "https://github.com/FITCommunity/Rango/issues"
   },
-  "homepage": "https://github.com/EnisMulic/MSG-Z-2#readme",
+  "homepage": "https://github.com/FITCommunity/Rango#readme",
   "dependencies": {
     "@discordjs/builders": "^0.5.0",
     "@discordjs/rest": "^0.1.0-canary.0",
