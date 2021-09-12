@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { getTextChannel } = require("../../utils/get-channel");
+const { getTextChannel } = require("../../utils");
 const { LOBBY } = require("../../constants/channels");
 
 module.exports = {
