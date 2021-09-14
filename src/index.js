@@ -3,8 +3,6 @@ const path = require("path");
 const dotenv = require("dotenv");
 const { Client, Collection, Intents } = require("discord.js");
 
-const { scheduler } = require("./jobs/mail");
-
 dotenv.config();
 
 const client = new Client({
@@ -60,5 +58,3 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.login(process.env.DISCORD_CLIENT_TOKEN);
-
-scheduler(client);
