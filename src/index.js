@@ -5,7 +5,9 @@ const { Client, Collection, Intents } = require("discord.js");
 
 dotenv.config();
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]
+});
 
 client.commands = new Collection();
 
