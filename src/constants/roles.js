@@ -1,4 +1,15 @@
 module.exports.ADMINISTRATOR = "Administrator";
 module.exports.MODERATOR = "Moderator";
+module.exports.CETVRTA_GODINA = "Četvrta godina";
+module.exports.TRECA_GODINA = "Treća godina";
+module.exports.DRUGA_GODINA = "Druga godina";
+module.exports.PRVA_GODINA = "Prva godina";
+module.exports.KOLIZIJA_2 = "Kolizija - 2";
+module.exports.KOLIZIJA_3 = "Kolizija - 3";
+module.exports.KOLIZIJA_4 = "Kolizija - 4";
+module.exports.APSOLVENT = "Apsolvent";
+module.exports.IMATRIKULANT = "Imatrikulant";
+module.exports.ALUMNI = "Alumni";
+module.exports.REGISTROVAN = "Registrovan";
 module.exports.NEREGISTROVAN = "Neregistrovan(a)";
 module.exports.EVERYONE = "@everyone";

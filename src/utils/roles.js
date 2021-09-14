@@ -1,3 +1,33 @@
-const getRole = (guild, name) => guild.roles.cache.find((role) => role.name === name);
+const { rankedRoles } = require("../constants/rankedRoles");
 
-module.exports = { getRole };
+const getRole = (guild, name) =>
+  guild.roles.cache.find((role) => role.name === name);
+
+const getRankedRoles = () => Object.keys(rankedRoles);
+
+/* eslint-enable consistent-return */
+const getMemberRankedRoles = (member) => {
+  const roles = getRankedRoles();
+  return Array.from(
+    member.roles.cache.filter((role) => roles.includes(role.name)).values()
+  );
+};
+/* eslint-disable consistent-return */
+
+const getHighestRankedRole = (member, excludedRoles = []) => {
+  const rankedRoleNames = getRankedRoles();
+  const memberRankedRoles = getMemberRankedRoles(member);
+
+  for (const rankedRole of rankedRoleNames.reverse()) {
+    for (const memberRankedRole of memberRankedRoles) {
+      if (
+        memberRankedRole.name === rankedRole &&
+        !excludedRoles.includes(rankedRoles)
+      ) {
+        return memberRankedRole;
+      }
+    }
+  }
+};
+
+module.exports = { getRole, getMemberRankedRoles, getHighestRankedRole };
