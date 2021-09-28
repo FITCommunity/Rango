@@ -22,7 +22,7 @@ const { rankedRoles } = require("../../constants/rankedRoles");
 module.exports = {
   data: new SlashCommandBuilder().setName("uslov").setDescription("Uslov!"),
   async execute(interaction) {
-    const {member} = interaction;
+    const { member } = interaction;
 
     if (memberHasRole(member, REGISTROVAN)) {
       await interaction.reply(hasRoleResponse);
