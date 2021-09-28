@@ -5,7 +5,8 @@ const { hasRoleResponse } = require("./errorResponse");
 const {
   getRole,
   getMemberRankedRoles,
-  getHighestRankedRole
+  getHighestRankedRole,
+  getNextRankedRole
 } = require("./roles");
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   getRole,
   getMemberRankedRoles,
   getHighestRankedRole,
+  getNextRankedRole,
   memberHasRole,
   hasRoleResponse
 };
