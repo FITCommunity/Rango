@@ -14,10 +14,10 @@ const {
   getGuild,
   getMemberRankedRoles,
   getHighestRankedRole,
+  getNextRankedRole,
   memberHasRole,
   hasRoleResponse
 } = require("../../utils");
-const { rankedRoles } = require("../../constants/rankedRoles");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("uslov").setDescription("Uslov!"),
@@ -41,10 +41,7 @@ module.exports = {
     /* eslint-enable no-await-in-loop */
 
     const registrovanRole = getRole(interaction.guild, REGISTROVAN);
-    const nextRole = getRole(
-      interaction.guild,
-      rankedRoles[highestRole.name].Next
-    );
+    const nextRole = getRole(interaction.guild, getNextRankedRole(highestRole));
 
     await member.roles.add(registrovanRole);
     await member.roles.add(nextRole);
