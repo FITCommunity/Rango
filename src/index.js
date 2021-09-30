@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const dotenv = require("dotenv");
 const { Client, Collection, Intents } = require("discord.js");
-const { sequelize } = require("./database");
 
 dotenv.config();
 
@@ -37,9 +36,6 @@ for (const file of eventFiles) {
 }
 
 client.once("ready", () => {
-  if (process.env.DATABASE_ACTIVE) {
-    sequelize.sync();
-  }
   console.log("Ready!");
 });
 
