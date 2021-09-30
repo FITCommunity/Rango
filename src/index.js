@@ -37,7 +37,9 @@ for (const file of eventFiles) {
 }
 
 client.once("ready", () => {
-  sequelize.sync();
+  if (process.env.DATABASE_ACTIVE) {
+    sequelize.sync();
+  }
   console.log("Ready!");
 });
 
