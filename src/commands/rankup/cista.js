@@ -20,7 +20,9 @@ const {
 } = require("../../utils");
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("uslov").setDescription("Uslov!"),
+  data: new SlashCommandBuilder()
+    .setName("cista")
+    .setDescription("Ociscena godina!"),
   async execute(interaction) {
     const { member } = interaction;
 
@@ -32,13 +34,9 @@ module.exports = {
     const highestRole = getHighestRankedRole(member);
     const memberRankedRoles = getMemberRankedRoles(member);
 
-    /* eslint-disable no-await-in-loop */
-    for (const memberRankedRole of memberRankedRoles) {
-      if (memberRankedRole.name !== highestRole.name) {
-        await member.roles.remove(memberRankedRole);
-      }
+    for await (const memberRankedRole of memberRankedRoles) {
+      await member.roles.remove(memberRankedRole);
     }
-    /* eslint-enable no-await-in-loop */
 
     const registrovanRole = getRole(interaction.guild, REGISTROVAN);
     const nextRole = getRole(interaction.guild, getNextRankedRole(highestRole));
@@ -50,7 +48,7 @@ module.exports = {
     const embed = new MessageEmbed()
       .setColor(GOLD)
       .setDescription(
-        `${emoji} ${member.user.toString()} je ispunio/ispunila uslov ${emoji}`
+        `${emoji} ${member.user.toString()} je ocistio/ocistila ${emoji}`
       )
       .setAuthor(member.displayName, member.user.avatarURL());
 
