@@ -7,7 +7,7 @@ const { NEREGISTROVAN } = require("../constants/roles");
 module.exports = {
   name: "guildMemberAdd",
   async execute(member) {
-    const {guild} = member;
+    const { guild } = member;
     const embed = new MessageEmbed()
       .setColor(GREEN)
       .setTitle("Member Joined")
