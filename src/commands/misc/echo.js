@@ -39,9 +39,9 @@ module.exports = {
       { name: EVERYONE, permission: false }
     ];
     return roles.map((role) => ({
-        type: ROLE,
-        permission: role.permission,
-        id: getRole(guild, role.name).id
-      }));
+      type: ROLE,
+      permission: role.permission,
+      id: getRole(guild, role.name).id
+    }));
   }
 };

@@ -25,13 +25,11 @@ module.exports = {
 
     const highestRole = getHighestRankedRole(member);
 
-    /* eslint-disable no-await-in-loop */
-    for (const memberRankedRole of memberRankedRoles) {
+    for await (const memberRankedRole of memberRankedRoles) {
       if (memberRankedRole.name !== highestRole.name) {
         await member.roles.remove(memberRankedRole);
       }
     }
-    /* eslint-enable no-await-in-loop */
 
     const emoji = ":broom:";
     const embed = new MessageEmbed()
