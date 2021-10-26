@@ -69,7 +69,7 @@ module.exports = {
     });
   },
   async getPermissions(client) {
-    const guild = await getGuild(client, process.env.GUILD_NAME);
+    const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
     const roles = [
       { name: TRECA_GODINA, permission: true },
       { name: CETVRTA_GODINA, permission: true },

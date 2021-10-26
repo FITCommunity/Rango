@@ -32,7 +32,7 @@ module.exports = {
     });
   },
   async getPermissions(client) {
-    const guild = await getGuild(client, process.env.GUILD_NAME);
+    const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
     const roles = [
       { name: ADMINISTRATOR, permission: true },
       { name: MODERATOR, permission: true },
