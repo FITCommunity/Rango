@@ -44,7 +44,7 @@ module.exports = {
     });
   },
   async getPermissions(client) {
-    const guild = await getGuild(client, process.env.GUILD_NAME);
+    const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
     const roles = [
       { name: REGISTROVAN, permission: true },
       { name: EVERYONE, permission: false }

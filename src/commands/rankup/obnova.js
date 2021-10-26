@@ -24,12 +24,14 @@ module.exports = {
     .setDescription("Obnova")
     .addBooleanOption((option) =>
       option
-        .setName("ukloni-prethodnu")
-        .setDescription("Uklanja ulogu za prethodnu godinu")
+        .setName("ukloni-prethodne-godine")
+        .setDescription("Uklanja uloge za prethodne godine")
         .setRequired(true)
     ),
   async execute(interaction) {
-    const ukloniPrethodnuOption = interaction.options.get("ukloni-prethodnu");
+    const ukloniPrethodneGodineOption = interaction.options.get(
+      "ukloni-prethodne-godine"
+    ).value;
 
     const { member } = interaction;
 
@@ -41,7 +43,7 @@ module.exports = {
     const highestRole = getHighestRankedRole(member);
     const memberRankedRoles = getMemberRankedRoles(member);
 
-    if (ukloniPrethodnuOption) {
+    if (ukloniPrethodneGodineOption) {
       for await (const memberRankedRole of memberRankedRoles) {
         if (memberRankedRole.name !== highestRole.name) {
           await member.roles.remove(memberRankedRole);
@@ -66,7 +68,7 @@ module.exports = {
     });
   },
   async getPermissions(client) {
-    const guild = await getGuild(client, process.env.GUILD_NAME);
+    const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
     const roles = [
       { name: PRVA_GODINA, permission: true },
       { name: DRUGA_GODINA, permission: true },
