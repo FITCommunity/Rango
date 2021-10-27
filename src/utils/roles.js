@@ -18,11 +18,12 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
   const rankedRoleNames = getRankedRoles();
   const memberRankedRoles = getMemberRankedRoles(member);
 
+  console.log(excludedRoles);
   for (const rankedRole of rankedRoleNames.reverse()) {
     for (const memberRankedRole of memberRankedRoles) {
       if (
         memberRankedRole.name === rankedRole &&
-        !excludedRoles.includes(rankedRoles)
+        !excludedRoles.includes(rankedRole)
       ) {
         return memberRankedRole;
       }
