@@ -33,9 +33,12 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
 
 const getNextRankedRole = (role) => rankedRoles[role.name].Next;
 
+const getKolizijaRole = (role) => rankedRoles[role.name].Kolizija;
+
 module.exports = {
   getRole,
   getMemberRankedRoles,
   getHighestRankedRole,
-  getNextRankedRole
+  getNextRankedRole,
+  getKolizijaRole
 };
