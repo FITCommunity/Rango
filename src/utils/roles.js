@@ -22,7 +22,7 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
     for (const memberRankedRole of memberRankedRoles) {
       if (
         memberRankedRole.name === rankedRole &&
-        !excludedRoles.includes(rankedRoles)
+        !excludedRoles.includes(rankedRole)
       ) {
         return memberRankedRole;
       }
@@ -32,9 +32,12 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
 
 const getNextRankedRole = (role) => rankedRoles[role.name].Next;
 
+const getKolizijaRole = (role) => rankedRoles[role.name].Kolizija;
+
 module.exports = {
   getRole,
   getMemberRankedRoles,
   getHighestRankedRole,
-  getNextRankedRole
+  getNextRankedRole,
+  getKolizijaRole
 };

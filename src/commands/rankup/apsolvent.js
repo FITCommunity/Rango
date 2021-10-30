@@ -1,9 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
-  PRVA_GODINA,
-  DRUGA_GODINA,
   TRECA_GODINA,
+  CETVRTA_GODINA,
+  APSOLVENT,
   REGISTROVAN,
   EVERYONE
 } = require("../../constants/roles");
@@ -14,14 +14,25 @@ const {
   getGuild,
   getMemberRankedRoles,
   getHighestRankedRole,
-  getNextRankedRole,
   memberHasRole,
   hasRoleResponse
 } = require("../../utils");
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("uslov").setDescription("Uslov!"),
+  data: new SlashCommandBuilder()
+    .setName("apsolvent")
+    .setDescription("Upisan apsolventski staž!")
+    .addBooleanOption((option) =>
+      option
+        .setName("ukloni-prethodne-godine")
+        .setDescription("Uklanja uloge za prethodne godine")
+        .setRequired(true)
+    ),
   async execute(interaction) {
+    const ukloniPrethodneGodineOption = interaction.options.get(
+      "ukloni-prethodne-godine"
+    ).value;
+
     const { member } = interaction;
 
     if (memberHasRole(member, REGISTROVAN)) {
@@ -32,23 +43,24 @@ module.exports = {
     const highestRole = getHighestRankedRole(member);
     const memberRankedRoles = getMemberRankedRoles(member);
 
-    for await (const memberRankedRole of memberRankedRoles) {
-      if (memberRankedRole.name !== highestRole.name) {
-        await member.roles.remove(memberRankedRole);
+    if (ukloniPrethodneGodineOption) {
+      for await (const memberRankedRole of memberRankedRoles) {
+        if (memberRankedRole.name !== highestRole.name) {
+          await member.roles.remove(memberRankedRole);
+        }
       }
     }
 
     const registrovanRole = getRole(interaction.guild, REGISTROVAN);
-    const nextRole = getRole(interaction.guild, getNextRankedRole(highestRole));
+    const apsolventRole = getRole(interaction.guild, APSOLVENT);
 
-    await member.roles.add(registrovanRole);
-    await member.roles.add(nextRole);
+    await member.roles.add([registrovanRole, apsolventRole]);
 
-    const emoji = ":tada:";
+    const emoji = ":money_mouth:";
     const embed = new MessageEmbed()
       .setColor(GOLD)
       .setDescription(
-        `${emoji} ${member.user.toString()} je ispunio/ispunila uslov ${emoji}`
+        `${emoji} ${member.user.toString()} je apsolvent ${emoji}`
       )
       .setAuthor(member.displayName, member.user.avatarURL());
 
@@ -59,9 +71,8 @@ module.exports = {
   async getPermissions(client) {
     const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
     const roles = [
-      { name: PRVA_GODINA, permission: true },
-      { name: DRUGA_GODINA, permission: true },
       { name: TRECA_GODINA, permission: true },
+      { name: CETVRTA_GODINA, permission: true },
       { name: EVERYONE, permission: false }
     ];
     return roles.map((role) => ({

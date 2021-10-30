@@ -12,15 +12,16 @@ const { GOLD } = require("../../constants/colors");
 const {
   getRole,
   getGuild,
-  getMemberRankedRoles,
   getHighestRankedRole,
-  getNextRankedRole,
+  getKolizijaRole,
   memberHasRole,
   hasRoleResponse
 } = require("../../utils");
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("uslov").setDescription("Uslov!"),
+  data: new SlashCommandBuilder()
+    .setName("kolizija")
+    .setDescription("Upisana kolizija!"),
   async execute(interaction) {
     const { member } = interaction;
 
@@ -30,25 +31,21 @@ module.exports = {
     }
 
     const highestRole = getHighestRankedRole(member);
-    const memberRankedRoles = getMemberRankedRoles(member);
-
-    for await (const memberRankedRole of memberRankedRoles) {
-      if (memberRankedRole.name !== highestRole.name) {
-        await member.roles.remove(memberRankedRole);
-      }
-    }
 
     const registrovanRole = getRole(interaction.guild, REGISTROVAN);
-    const nextRole = getRole(interaction.guild, getNextRankedRole(highestRole));
+    const kolizijaRole = getRole(
+      interaction.guild,
+      getKolizijaRole(highestRole)
+    );
 
     await member.roles.add(registrovanRole);
-    await member.roles.add(nextRole);
+    await member.roles.add(kolizijaRole);
 
-    const emoji = ":tada:";
+    const emoji = ":money_with_wings:";
     const embed = new MessageEmbed()
       .setColor(GOLD)
       .setDescription(
-        `${emoji} ${member.user.toString()} je ispunio/ispunila uslov ${emoji}`
+        `${emoji} ${member.user.toString()} je upisao/la koliziju ${emoji}`
       )
       .setAuthor(member.displayName, member.user.avatarURL());
 
