@@ -3,30 +3,49 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 const {
   TRECA_GODINA,
   CETVRTA_GODINA,
+  ALUMNI,
+  REGISTROVAN,
   EVERYONE
 } = require("../../constants/roles");
 const { ROLE } = require("../../constants/permissionTypes");
 const { GOLD } = require("../../constants/colors");
-const { getRole, getGuild } = require("../../utils");
+const {
+  getRole,
+  getGuild,
+  getMemberRankedRoles,
+  memberHasRole,
+  hasRoleResponse
+} = require("../../utils");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("diploma").setDescription("Diploma!"),
   async execute(interaction) {
     const { member } = interaction;
 
+    if (memberHasRole(member, REGISTROVAN)) {
+      await interaction.reply(hasRoleResponse);
+      return;
+    }
+
+    const memberRankedRoles = getMemberRankedRoles(member);
+
+    for await (const memberRankedRole of memberRankedRoles) {
+      await member.roles.remove(memberRankedRole);
+    }
+
+    const alumniRole = getRole(interaction.guild, ALUMNI);
+
+    await member.roles.add(alumniRole);
+
     const emoji = ":mortar_board:";
     const embed = new MessageEmbed()
       .setColor(GOLD)
-      .setDescription(
-        `${emoji} ${member.user.toString()} je diplomirao/la ${emoji}`
-      )
+      .setDescription(`${emoji} ${member.user.toString()} je alumni ${emoji}`)
       .setAuthor(member.displayName, member.user.avatarURL());
 
     await interaction.reply({
       embeds: [embed]
     });
-
-    await member.kick("Diplomirao/la");
   },
   async getPermissions(client) {
     const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
