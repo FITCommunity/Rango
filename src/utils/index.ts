@@ -1,16 +1,16 @@
-const { getTextChannel } = require("./channel");
-const { getGuild } = require("./guild");
-const { memberHasRole } = require("./checks");
-const { hasRoleResponse } = require("./errorResponse");
-const {
+import { getTextChannel } from "./channel";
+import { getGuild } from "./guild";
+import { memberHasRole } from "./checks";
+import { hasRoleResponse } from "./errorResponse";
+import {
   getRole,
   getMemberRankedRoles,
   getHighestRankedRole,
   getNextRankedRole,
   getKolizijaRole
-} = require("./roles");
+} from "./roles";
 
-module.exports = {
+export {
   getTextChannel,
   getGuild,
   getRole,

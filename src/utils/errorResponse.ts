@@ -3,4 +3,4 @@ const hasRoleResponse = {
   ephemeral: true
 };
 
-module.exports = { hasRoleResponse };
+export { hasRoleResponse };

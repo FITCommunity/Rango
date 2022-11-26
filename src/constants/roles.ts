@@ -1,0 +1,15 @@
+export const ADMINISTRATOR = "Administrator";
+export const MODERATOR = "Moderator";
+export const CETVRTA_GODINA = "Četvrta godina";
+export const TRECA_GODINA = "Treća godina";
+export const DRUGA_GODINA = "Druga godina";
+export const PRVA_GODINA = "Prva godina";
+export const KOLIZIJA_2 = "Kolizija - 2";
+export const KOLIZIJA_3 = "Kolizija - 3";
+export const KOLIZIJA_4 = "Kolizija - 4";
+export const APSOLVENT = "Apsolvent";
+export const IMATRIKULANT = "Imatrikulant";
+export const ALUMNI = "Alumni";
+export const REGISTROVAN = "Registrovan";
+export const NEREGISTROVAN = "Neregistrovan(a)";
+export const EVERYONE = "@everyone";
