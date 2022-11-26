@@ -1,20 +1,21 @@
-const { rankedRoles } = require("../constants/rankedRoles");
+import { Guild, GuildMember, Role } from "discord.js";
+import rankedRoles from "../constants/rankedRoles";
 
-const getRole = (guild, name) =>
+const getRole = (guild: Guild, name: string) =>
   guild.roles.cache.find((role) => role.name === name);
 
 const getRankedRoles = () => Object.keys(rankedRoles);
 
 /* eslint-enable consistent-return */
-const getMemberRankedRoles = (member) => {
+function getMemberRankedRoles(member: GuildMember): Role[] {
   const roles = getRankedRoles();
   return Array.from(
     member.roles.cache.filter((role) => roles.includes(role.name)).values()
   );
-};
+}
 /* eslint-disable consistent-return */
 
-const getHighestRankedRole = (member, excludedRoles = []) => {
+const getHighestRankedRole = (member: GuildMember, excludedRoles = []) => {
   const rankedRoleNames = getRankedRoles();
   const memberRankedRoles = getMemberRankedRoles(member);
 
@@ -22,7 +23,7 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
     for (const memberRankedRole of memberRankedRoles) {
       if (
         memberRankedRole.name === rankedRole &&
-        !excludedRoles.includes(rankedRole)
+        !excludedRoles.includes(rankedRole as never)
       ) {
         return memberRankedRole;
       }
@@ -30,11 +31,13 @@ const getHighestRankedRole = (member, excludedRoles = []) => {
   }
 };
 
-const getNextRankedRole = (role) => rankedRoles[role.name].Next;
+const getNextRankedRole = (role: Role) =>
+  rankedRoles[role.name as keyof typeof rankedRoles].Next;
 
-const getKolizijaRole = (role) => rankedRoles[role.name].Kolizija;
+const getKolizijaRole = (role: Role) =>
+  rankedRoles[role.name as keyof typeof rankedRoles].Kolizija;
 
-module.exports = {
+export {
   getRole,
   getMemberRankedRoles,
   getHighestRankedRole,

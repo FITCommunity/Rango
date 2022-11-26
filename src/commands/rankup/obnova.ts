@@ -1,25 +1,33 @@
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const {
+import {
+  Client,
+  CommandInteraction,
+  Guild,
+  GuildMember,
+  SlashCommandBuilder,
+  EmbedBuilder,
+  Role
+} from "discord.js";
+import {
   PRVA_GODINA,
   DRUGA_GODINA,
   TRECA_GODINA,
   REGISTROVAN,
   EVERYONE
-} = require("../../constants/roles");
-const { ROLE } = require("../../constants/permissionTypes");
-const { GOLD } = require("../../constants/colors");
-const {
+} from "../../constants/roles";
+import { ROLE } from "../../constants/permissionTypes";
+import { GOLD } from "../../constants/colors";
+import {
   getRole,
   getGuild,
   getMemberRankedRoles,
   getHighestRankedRole,
   memberHasRole,
   hasRoleResponse
-} = require("../../utils");
+} from "../../utils";
+import { CommandPermission, ISlashCommand } from "../command";
 
-module.exports = {
-  data: new SlashCommandBuilder()
+class ObnovaCommand implements ISlashCommand {
+  data = new SlashCommandBuilder()
     .setName("obnova")
     .setDescription("Obnova")
     .addBooleanOption((option) =>
@@ -27,20 +35,21 @@ module.exports = {
         .setName("ukloni-prethodne-godine")
         .setDescription("Uklanja uloge za prethodne godine")
         .setRequired(true)
-    ),
-  async execute(interaction) {
+    )
+    .toJSON();
+  async execute(interaction: CommandInteraction): Promise<void> {
     const ukloniPrethodneGodineOption = interaction.options.get(
       "ukloni-prethodne-godine"
-    ).value;
+    )?.value;
 
-    const { member } = interaction;
+    const member = interaction.member as GuildMember;
 
     if (memberHasRole(member, REGISTROVAN)) {
       await interaction.reply(hasRoleResponse);
       return;
     }
 
-    const highestRole = getHighestRankedRole(member);
+    const highestRole = getHighestRankedRole(member) as Role;
     const memberRankedRoles = getMemberRankedRoles(member);
 
     if (ukloniPrethodneGodineOption) {
@@ -51,24 +60,33 @@ module.exports = {
       }
     }
 
-    const registrovanRole = getRole(interaction.guild, REGISTROVAN);
+    const registrovanRole = getRole(
+      interaction.guild as Guild,
+      REGISTROVAN
+    ) as Role;
 
     await member.roles.add(registrovanRole);
 
     const emoji = ":face_with_symbols_over_mouth:";
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setColor(GOLD)
       .setDescription(
         `${emoji} ${member.user.toString()} je obnovio/obnovila ${emoji}`
       )
-      .setAuthor(member.displayName, member.user.avatarURL());
+      .setAuthor({
+        name: member.displayName,
+        iconURL: member.user.avatarURL() as string
+      });
 
     await interaction.reply({
       embeds: [embed]
     });
-  },
-  async getPermissions(client) {
-    const guild = await getGuild(client, process.env.DISCORD_GUILD_NAME);
+  }
+  async getPermissions(client: Client<boolean>): Promise<CommandPermission[]> {
+    const guild = await getGuild(
+      client,
+      process.env.DISCORD_GUILD_NAME as string
+    );
     const roles = [
       { name: PRVA_GODINA, permission: true },
       { name: DRUGA_GODINA, permission: true },
@@ -78,7 +96,10 @@ module.exports = {
     return roles.map((role) => ({
       type: ROLE,
       permission: role.permission,
-      id: getRole(guild, role.name).id
+      id: getRole(guild as Guild, role.name)?.id as string
     }));
   }
-};
+}
+
+const obnovaCommand = new ObnovaCommand();
+export default obnovaCommand;
