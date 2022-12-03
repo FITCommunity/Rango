@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import commands from "./commands";
 import events from "./events";
+import syncDatabase from "./database/sync";
 
 config();
 
@@ -23,8 +24,9 @@ for (const event of events) {
   }
 }
 
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log("Ready!");
+  await syncDatabase();
 });
 
 client.on("interactionCreate", async (interaction) => {
