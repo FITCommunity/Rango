@@ -1,4 +1,3 @@
-import { APIApplicationCommandOption } from "discord-api-types";
 import {
   Client,
   CommandInteraction,

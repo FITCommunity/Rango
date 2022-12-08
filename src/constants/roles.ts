@@ -10,6 +10,7 @@ export const KOLIZIJA_4 = "Kolizija - 4";
 export const APSOLVENT = "Apsolvent";
 export const IMATRIKULANT = "Imatrikulant";
 export const ALUMNI = "Alumni";
+export const MUTED = "Muted";
 export const REGISTROVAN = "Registrovan";
 export const NEREGISTROVAN = "Neregistrovan(a)";
 export const EVERYONE = "@everyone";
