@@ -12,8 +12,14 @@ const sequelize = new Sequelize(
     port: process.env.DATABASE_PORT as unknown as number,
     dialect: "mysql",
     logging: false,
+    ssl: true,
     define: {
       timestamps: false
+    },
+    dialectOptions: {
+      ssl: {
+        require: true
+      }
     }
   }
 );
