@@ -4,7 +4,7 @@
     "scope-enum": [
       2,
       "always",
-      ["command", "event", "misc", "rankup", "database", "utils"]
+      ["command", "event", "misc", "rankup", "member", "database", "utils"]
     ]
   }
 }
