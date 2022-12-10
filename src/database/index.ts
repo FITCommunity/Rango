@@ -23,6 +23,12 @@ dotenv.config();
 //   }
 // );
 
-const sequelize = new Sequelize(process.env.DATABASE_URL as string);
+const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: true
+    }
+  }
+});
 
 export default sequelize;
