@@ -26,7 +26,9 @@ class AddMemberCommand implements ISlashCommand {
     .addMentionableOption((option) =>
       option.setName("member").setDescription("Target Member").setRequired(true)
     )
-    .addStringOption((option) => option.setName("index").setRequired(true))
+    .addStringOption((option) =>
+      option.setName("index").setDescription("Student index").setRequired(true)
+    )
     .toJSON();
   async execute(interaction: CommandInteraction): Promise<void> {
     const memberOption = interaction.options.get("member");
@@ -44,7 +46,7 @@ class AddMemberCommand implements ISlashCommand {
 
     const embed = new EmbedBuilder()
       .setColor(GREEN)
-      .setDescription(`Member ${member.nickname} added!`);
+      .setDescription(`Member <@${member.id}> added!`);
 
     await interaction.reply({
       embeds: [embed]

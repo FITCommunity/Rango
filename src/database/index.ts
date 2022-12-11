@@ -1,34 +1,32 @@
-import { Sequelize } from "sequelize";
+import { Options, Sequelize } from "sequelize";
 import dotenv from "dotenv";
+import dotenvExpand from "dotenv-expand";
+import { DEVELOPMENT_ENV } from "../constants/environments";
 
-dotenv.config();
+const env = dotenv.config();
+dotenvExpand.expand(env);
 
-// const sequelize = new Sequelize(
-//   process.env.DATABASE_NAME as string,
-//   process.env.DATABASE_USER as string,
-//   process.env.DATABASE_PASSWORD as string,
-//   {
-//     host: process.env.DATABASE_HOST as string,
-//     dialect: "mysql",
-//     logging: false,
-//     ssl: true,
-//     define: {
-//       timestamps: false
-//     },
-//     dialectOptions: {
-//       ssl: {
-//         rejectUnauthorized: true
-//       }
-//     }
-//   }
-// );
+const sequelizeOptions: Options =
+  process.env.NODE_ENVIRONMENT === DEVELOPMENT_ENV
+    ? {
+        define: {
+          timestamps: false
+        }
+      }
+    : {
+        define: {
+          timestamps: false
+        },
+        dialectOptions: {
+          ssl: {
+            rejectUnauthorized: true
+          }
+        }
+      };
 
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: true
-    }
-  }
-});
+const sequelize = new Sequelize(
+  process.env.DATABASE_URL as string,
+  sequelizeOptions
+);
 
 export default sequelize;
