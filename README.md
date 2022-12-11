@@ -29,4 +29,12 @@ cp .env.example .env
 
 Use `npm start` to run the bot when you create a command for the first time or make any modification of the command meta data (name, description, permissions, etc).
 
-Use `npm test` to run the bot while developing or debugging existing commands.
+Use `npm dev` to run the bot while developing or debugging existing commands.
+
+## Running Docker
+
+To run the database in a Docker Container set the database env variables and run
+
+```shell
+docker-compose up -d [--build]
+```

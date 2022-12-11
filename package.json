@@ -20,7 +20,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "prestart": "ts-node src/deploy-commands.ts",
-    "test": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
     "postinstall": "husky install"
   },
   "repository": {
