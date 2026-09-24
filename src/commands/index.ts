@@ -1,7 +1,7 @@
 import { ISlashCommand } from "./command";
 import * as miscCommands from "./misc";
 import * as rankupCommands from "./rankup";
-import * as memberCommands from "./member";
+//import * as memberCommands from "./member";
 
 const commands: ISlashCommand[] = [
   miscCommands.echoCommand,
@@ -13,7 +13,7 @@ const commands: ISlashCommand[] = [
   rankupCommands.imatrikulantCommand,
   rankupCommands.kolizijaCommand,
   rankupCommands.uslovCommand,
-  rankupCommands.obnovaCommand,
-  memberCommands.addMemberComand
+  rankupCommands.obnovaCommand
+  //memberCommands.addMemberComand
 ];
 export default commands;
